@@ -1,67 +1,524 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfis Dark - A Arte do Mistério Digital</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soluções para Crescer — Logotipo, Site e Anúncios</title>
+<meta name="description" content="Criação de logotipo, sites e anúncios para empresas que querem crescer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+/* ==========================================================
+   1. RESET & SETUP
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+html { scroll-behavior: smooth; }
+
+/* ==========================================================
+   2. VARIÁVEIS (Design Tokens)
+   ========================================================== */
+:root {
+  --bg-main: #09090b;
+  --bg-card: #18181b;
+  --bg-card-hover: #27272a;
+  
+  --text-main: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --border-color: #3f3f46;
+  
+  --color-purple: #a855f7;
+  --color-orange: #f97316;
+  --color-green: #22c55e;
+  
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  
+  --shadow-card: 0 10px 40px -10px rgba(0,0,0,0.7);
+  --ease: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================
+   3. BASE & LAYOUT GLOBAL
+   ========================================================== */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+:focus-visible { outline: 2px solid var(--color-green); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+/* ==========================================================
+   4. CABEÇALHO (Header)
+   ========================================================== */
+.site-header {
+  position: relative;
+  margin-bottom: 48px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: 
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.08), transparent 50%),
+    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.08), transparent 50%),
+    var(--bg-card);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.logo i { font-size: 2.2rem; color: var(--color-green); filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.4)); }
+.logo .accent { color: var(--color-green); }
+.header-subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 8px; font-weight: 400; }
+
+/* ==========================================================
+   5. GRID & CARDS
+   ========================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  align-items: stretch;
+}
+
+.card {
+  --theme-color: var(--color-purple);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  cursor: grab;
+  transition: var(--ease);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  
+  /* Animação de entrada */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: enter 0.6s ease forwards;
+}
+
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+@keyframes enter { to { opacity: 1; transform: translateY(0); } }
+
+/* Temas dos Cards */
+.card[data-theme="orange"] { --theme-color: var(--color-orange); }
+.card[data-theme="green"] { --theme-color: var(--color-green); }
+
+/* Indicador de Arrastar (Drag Handle) */
+.drag-handle {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--border-color);
+  font-size: 1.5rem;
+  opacity: 0.5;
+  transition: var(--ease);
+}
+.card:hover .drag-handle { opacity: 1; color: var(--text-muted); }
+
+/* Linha superior colorida */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--theme-color);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  opacity: 0.8;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-8px);
+  border-color: var(--theme-color);
+  box-shadow: var(--shadow-card), 0 0 30px rgba(0,0,0,0.1);
+}
+
+.card.dragging { opacity: 0.4; border: 2px dashed var(--theme-color); cursor: grabbing; transform: scale(0.98); }
+
+/* Selo Mais Popular */
+.badge-popular {
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: var(--theme-color);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  display: none;
+  z-index: 10;
+}
+.card[data-popular] .badge-popular { display: block; }
+
+/* Conteúdo do Card */
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+.num { background: rgba(255,255,255,0.1); color: var(--theme-color); font-weight: 800; font-size: 0.85rem; padding: 4px 10px; border-radius: var(--radius-sm); }
+.tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+.card-title { font-size: 1.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.5px; }
+.card-title .hl { color: var(--theme-color); }
+.card-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+
+/* Imagem inteira, sem cortes (proporção original) */
+.card-img {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: #000;
+}
+.card-img img { width: 100%; height: auto; opacity: 0.85; transition: transform 0.6s ease, opacity 0.6s ease; }
+.card:hover .card-img img { transform: scale(1.08); opacity: 1; }
+
+/* Lista de Funcionalidades */
+.features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; flex-grow: 1; }
+.features li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #e4e4e7; }
+.features i { color: var(--theme-color); font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+
+/* Rodapé do Card (Preços e Botões) */
+.card-actions { display: flex; flex-direction: column; gap: 12px; }
+
+/* Botões Estilizados — SEMPRE ACESOS (estado "hover" aplicado por padrão) */
+.btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700; font-size: 1rem;
+  background: var(--theme-color);
+  border: 1px solid var(--theme-color);
+  box-shadow: 0 8px 20px -6px var(--theme-color);
+  transition: var(--ease);
+  position: relative;
+}
+.btn .label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #000; transition: var(--ease); }
+.btn .value { color: #000; display: flex; align-items: center; gap: 6px; transition: var(--ease); }
+.btn i { font-size: 1.2rem; color: #000; transition: var(--ease); }
+
+/* Hover do botão: apenas intensifica o brilho já aceso */
+.btn:hover, .btn:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 12px 28px -6px var(--theme-color);
+}
+
+/* Preço Secundário (Mensalidade/Consultoria) */
+.price-secondary {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.3); border: 1px solid transparent;
+  font-size: 0.9rem; gap: 12px; transition: var(--ease);
+}
+.price-secondary:hover { border-color: var(--border-color); background: rgba(255,255,255,0.05); }
+.price-secondary .label { color: var(--text-muted); font-size: 0.78rem; }
+.price-secondary .value { font-weight: 700; color: var(--text-main); font-size: 0.85rem; white-space: nowrap; }
+.price-secondary a { text-decoration: underline; text-decoration-color: var(--theme-color); text-underline-offset: 4px; }
+.price-secondary a:hover { color: var(--theme-color); }
+
+/* Tooltip nativo refeito via CSS */
+[data-tip] { position: relative; cursor: help; }
+[data-tip]::after {
+  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(10px); width: max-content; max-width: 260px;
+  padding: 8px 14px; border-radius: var(--radius-sm); background: #fff; color: #000;
+  font-size: 0.8rem; font-weight: 600; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  opacity: 0; pointer-events: none; transition: var(--ease); z-index: 20;
+}
+[data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Footer do Card */
+.card-foot {
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color);
+  display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted);
+}
+.card-foot i { color: var(--theme-color); font-size: 1.3rem; }
+
+/* ==========================================================
+   6. FOOTER SITE & TOAST
+   ========================================================== */
+.site-footer {
+  text-align: center; margin-top: 64px; padding: 24px 0;
+  font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border-color);
+}
+.site-footer i { vertical-align: middle; margin-right: 6px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
+  background: var(--bg-card); border: 1px solid var(--color-green); color: var(--text-main);
+  padding: 14px 24px; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: var(--ease); z-index: 50;
+  display: flex; align-items: center; gap: 10px;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast i { color: var(--color-green); font-size: 1.2rem; }
+
+/* ==========================================================
+   7. ACESSIBILIDADE & UTILITÁRIOS
+   ========================================================== */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (max-width: 768px) {
+  body { padding: 16px; }
+  .site-header { padding: 32px 20px; }
+  .card-title { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .card { opacity: 1; transform: none; }
+}
+</style>
 </head>
 <body>
-    <div class="particles" id="particles-js"></div>
-    <div class="container">
-        <header>
-            <div class="icon-group">
-                <i class="fas fa-mask icon-animate"></i>
-                <i class="fas fa-ghost icon-animate delay-1"></i>
-                <i class="fas fa-bolt icon-animate delay-2"></i>
-            </div>
-            <h1 class="headline glitch" data-text="PERFIS DARK">PERFIS DARK</h1>
-            <p class="subtitle">A Arte do Mistério Digital</p>
-        </header>
+<div class="container">
 
-        <main>
-            <div class="content-box">
-                <p class="copy-text">
-                    Se o seu perfil não tem um rosto, ele vai crescer mais do que deveria.<br>
-                    Os perfis dark sem um rosto viram lendas no digital.<br>
-                    Isso porque atrelar uma imagem a um perfil não é sinônimo de vendas, mas sim de limites.<br><br>
-                    Esses perfis crescem porque deixam o mistério tomar conta do conteúdo, fazendo com que o impacto visual e a mensagem passada sejam poderosos.<br><br>
-                    Por isso, quanto mais dark for o seu perfil, mais ele se torna um ímã de atenção.
-                </p>
-                
-                <div class="highlight-box">
-                    <p>
-                        E para facilitar o seu poder de vendas, quando você tocar em Saiba Mais, não vai encontrar um vídeo longo, cheio de escassez barata e marketing ruim tentando te vender um curso,
-                        mas vai encontrar a melhor acessória comercial que um perfil precisa para se tornar lendário nas vendas.
-                    </p>
-                    <p class="signature">Te vejo do outro lado. Beijinhos.</p>
-                </div>
-            </div>
-
-            <div class="cta-buttons">
-               <a href="index2.html" class="btn btn-primary pulse">
-    SAIBA MAIS <i class="fas fa-arrow-right"></i>
-</a>
-              <button class="btn btn-secondary">
-  <a href="index2.html" style="text-decoration: none; color: inherit;">
-    TORNAR-SE LENDÁRIO <i class="fas fa-crown"></i>
-  </a>
-</button>
-            </div>
-        </main>
-
-        <footer>
-            <p class="version">VERSÃO 1.0</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </footer>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="logo">
+      <i class="ph-fill ph-star" role="img" aria-label="Logo estrela"></i>
+      <span>SOLUÇÕES <span class="accent">PARA CRESCER</span></span>
     </div>
+    <p class="header-subtitle">Estruturamos sua marca, presença digital e vendas.</p>
+  </header>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
+  <!-- ================= GRID ================= -->
+  <main>
+    <h1 class="sr-only">Serviços: logotipo, site e anúncios</h1>
+    
+    <section class="grid" id="grid" aria-label="Lista de serviços — arraste os cards para reorganizar">
+
+      <!-- CARD 1 · LOGOTIPO -->
+      <article class="card" data-theme="purple" data-id="1" draggable="true" tabindex="0" aria-labelledby="t1">
+        <i class="ph-bold ph-dots-six drag-handle"></i>
+        
+        <div class="card-head">
+          <span class="num">#01</span>
+          <span class="tag">Sua Marca, Seu Legado</span>
+        </div>
+        
+        <div>
+          <h2 class="card-title" id="t1">Criação de <span class="hl">Logotipo</span></h2>
+          <p class="card-desc">Quem não tem uma MARCA FORTE, não tem um legado.</p>
+        </div>
+        
+        <div class="card-img">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzEpG6g-44wMtYUpgqrNPwTDHHEI9GfAKVCCFFe6ymeINwoBYr5eXcWoazrJ2dx9OzS3yECiQuFon87GJbtZjgoYUp3gGQznzlskNPyo8KhLXnrWIkmAAAPpweFPeO9k0R539Lg3nDeTPF9NJRt60L2yvLCMQMhj-gscdruKGuIx20PGB0-gEnqpaU-Jk/s1600/Melhor%20Cria%C3%A7%C3%A3o%20de%20Identidade%20Experi%C3%AAncia%20Visual%20e%20Logotipos%20do%20Brasil%20de%20Aracaju%20Cria%C3%A7%C3%A3o%20de%20Marcas%20Logotipos%20175.webp" alt="Criação de logotipo e identidade visual profissional" loading="lazy">
+        </div>
+        
+        <ul class="features">
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Criação orientada às aplicações</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Preparação técnica e orientação</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Design profissional e 100% exclusivo</li>
+        </ul>
+        
+        <div class="card-actions">
+          <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Abrir página do serviço">
+            <span class="label">Criar Logotipo</span>
+            <span class="value">R$ 800 <i class="ph-bold ph-arrow-up-right"></i></span>
+          </a>
+        </div>
+        
+        <footer class="card-foot">
+          <i class="ph-fill ph-shield-check" aria-hidden="true"></i> Design profissional e exclusivo.
+        </footer>
+      </article>
+
+      <!-- CARD 2 · SITE + MENSALIDADE -->
+      <article class="card" data-theme="orange" data-id="2" data-popular draggable="true" tabindex="0" aria-labelledby="t2">
+        <span class="badge-popular">Mais Popular</span>
+        <i class="ph-bold ph-dots-six drag-handle"></i>
+
+        <div class="card-head">
+          <span class="num">#02</span>
+          <span class="tag">Presença Digital</span>
+        </div>
+        
+        <div>
+          <h2 class="card-title" id="t2">Criação de <span class="hl">Site</span></h2>
+          <p class="card-desc">Mais profissionalismo e vendas 24h por dia.</p>
+        </div>
+        
+        <div class="card-img">
+          <img src="https://1.bp.blogspot.com/-OiELKMBE6yM/YVNZElS-aII/AAAAAAAADWY/k8y2zEmn1rc6wALxEokikALQtu0KxLObQCLcBGAsYHQ/s16000/tenha%2Bsua%2Bpropria%2Bloja%2Bvirtual%2Bvenda%2Bprodutos%2Bonline%2Binternet%2B-0%2B%25284%2529.png" alt="Criação de site e loja virtual para vender online" loading="lazy">
+        </div>
+        
+        <ul class="features">
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Organizar apresentação confiável</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Provas de confiança e credibilidade</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Design responsivo e moderno</li>
+        </ul>
+        
+        <div class="card-actions">
+          <div class="price-secondary" data-tip="Mensalidade: domínio próprio, hospedagem rápida e suporte com atualizações">
+            <span class="label">Suporte + Domínio + Hospedagem</span>
+            <span class="value">R$ 90/mês</span>
+          </div>
+          <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Ver os pacotes de criação de site">
+            <span class="label">Implementação</span>
+            <span class="value">Ver Pacotes <i class="ph-bold ph-arrow-up-right"></i></span>
+          </a>
+        </div>
+        
+        <footer class="card-foot">
+          <i class="ph-fill ph-storefront" aria-hidden="true"></i> Seu negócio com presença profissional.
+        </footer>
+      </article>
+
+      <!-- CARD 3 · ANÚNCIOS -->
+      <article class="card" data-theme="green" data-id="3" draggable="true" tabindex="0" aria-labelledby="t3">
+        <i class="ph-bold ph-dots-six drag-handle"></i>
+
+        <div class="card-head">
+          <span class="num">#03</span>
+          <span class="tag">Escala de Vendas</span>
+        </div>
+        
+        <div>
+          <h2 class="card-title" id="t3">Gestão de <span class="hl">Anúncios</span></h2>
+          <p class="card-desc">Assessoria e implementação de vendas.</p>
+        </div>
+        
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=70" alt="Painel com gráficos de desempenho de campanhas" loading="lazy">
+        </div>
+        
+        <ul class="features">
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Identificar uma oferta vencedora</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Testar mensagens e públicos</li>
+          <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Ajustar com base nos resultados</li>
+        </ul>
+        
+        <div class="card-actions">
+          <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Abrir detalhes da implementação de 90 dias">
+            <span class="label">Implementação 90D</span>
+            <span class="value">Ver Detalhes <i class="ph-bold ph-arrow-up-right"></i></span>
+          </a>
+          <div class="price-secondary">
+            <span class="label">Precisa de ajuda?</span>
+            <span class="value"><a href="https://assessoria.wacomercial.com.br/p/consultoria-assessoria-para-empresas.html" target="_blank" rel="noopener">Consultoria</a></span>
+          </div>
+        </div>
+        
+        <footer class="card-foot">
+          <i class="ph-fill ph-chart-line-up" aria-hidden="true"></i> Estratégia focada em resultados reais.
+        </footer>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <i class="ph-bold ph-arrows-out-line-horizontal"></i> Arraste os cards para reorganizar a ordem de preferência. <br><br>
+    © 2026 Soluções para Crescer
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <i class="ph-fill ph-check-circle"></i> <span id="toast-msg">Ordem salva</span>
+</div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+  const STORE = 'spc-order';
+  let dragged = null, toastTimer;
+
+  const cards = () => [...grid.querySelectorAll('.card')];
+
+  function say(msg) {
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer); 
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  function applyOrder(ids) {
+    ids.forEach(id => { 
+      const el = grid.querySelector(`[data-id="${id}"]`); 
+      if (el) grid.appendChild(el); 
+    });
+  }
+
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify(cards().map(c => c.dataset.id))); } catch (e) {}
+  }
+
+  // Restaura a ordem salva
+  try { 
+    const saved = JSON.parse(localStorage.getItem(STORE)); 
+    if (saved) applyOrder(saved); 
+  } catch (e) {}
+
+  // Lógica Drag and Drop
+  grid.addEventListener('dragstart', e => {
+    dragged = e.target.closest('.card'); 
+    if (!dragged) return;
+    dragged.classList.add('dragging'); 
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  grid.addEventListener('dragover', e => {
+    e.preventDefault();
+    const over = e.target.closest('.card');
+    if (!dragged || !over || over === dragged) return;
+    
+    const r = over.getBoundingClientRect();
+    // Decide se insere antes ou depois baseado na posição do mouse
+    const after = (e.clientX - r.left) > r.width / 2 && window.innerWidth >= 768 || 
+                  (e.clientY - r.top) > r.height / 2 && window.innerWidth < 768;
+                  
+    grid.insertBefore(dragged, after ? over.nextSibling : over);
+  });
+
+  grid.addEventListener('dragend', () => {
+    if (!dragged) return;
+    dragged.classList.remove('dragging'); 
+    dragged = null; 
+    save(); 
+    say('Nova ordem salva!');
+  });
+</script>
 </body>
 </html>
