@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soluções para Crescer — Logotipo, Site e Anúncios</title>
+<meta name="theme-color" content="#000000">
 <meta name="description" content="Criação de logotipo, sites e anúncios para empresas que querem crescer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,17 +25,17 @@ html { scroll-behavior: smooth; }
    2. VARIÁVEIS (Design Tokens)
    ========================================================== */
 :root {
-  --bg-main: #09090b;
-  --bg-card: #18181b;
-  --bg-card-hover: #27272a;
+  --bg-main: #000000;
+  --bg-card: #0B0B0B;
+  --bg-card-hover: #141414;
   
-  --text-main: #f4f4f5;
-  --text-muted: #a1a1aa;
-  --border-color: #3f3f46;
+  --text-main: #ffffff;
+  --text-muted: #BDBDBD;
+  --border-color: #2E2E2E;
   
-  --color-purple: #a855f7;
-  --color-orange: #f97316;
-  --color-green: #22c55e;
+  --gold: #D4AF37;
+  --gold-light: #F5D56B;
+  --gold-rgb: 212, 175, 55;
   
   --radius-lg: 20px;
   --radius-md: 12px;
@@ -66,7 +67,7 @@ body {
   flex: 1;
 }
 
-:focus-visible { outline: 2px solid var(--color-green); outline-offset: 3px; border-radius: var(--radius-sm); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: var(--radius-sm); }
 
 /* ==========================================================
    4. CABEÇALHO (Header)
@@ -80,8 +81,8 @@ body {
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: 
-    radial-gradient(circle at top left, rgba(34, 197, 94, 0.08), transparent 50%),
-    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.08), transparent 50%),
+    radial-gradient(circle at top left, rgba(212, 175, 55, 0.14), transparent 50%),
+    radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.08), transparent 50%),
     var(--bg-card);
 }
 
@@ -94,8 +95,8 @@ body {
   letter-spacing: -0.5px;
 }
 
-.logo i { font-size: 2.2rem; color: var(--color-green); filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.4)); }
-.logo .accent { color: var(--color-green); }
+.logo i { font-size: 2.2rem; color: var(--gold); filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5)); }
+.logo .accent { color: var(--gold); }
 .header-subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 8px; font-weight: 400; }
 
 /* ==========================================================
@@ -109,7 +110,7 @@ body {
 }
 
 .card {
-  --theme-color: var(--color-purple);
+  --theme-color: var(--gold);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -131,9 +132,7 @@ body {
 .card:nth-child(3) { animation-delay: 0.3s; }
 @keyframes enter { to { opacity: 1; transform: translateY(0); } }
 
-/* Temas dos Cards */
-.card[data-theme="orange"] { --theme-color: var(--color-orange); }
-.card[data-theme="green"] { --theme-color: var(--color-green); }
+/* Todos os destaques em dourado */
 
 /* Indicador de Arrastar (Drag Handle) */
 .drag-handle {
@@ -154,7 +153,7 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: var(--theme-color);
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   opacity: 0.8;
 }
@@ -181,7 +180,7 @@ body {
   letter-spacing: 1px;
   padding: 6px 12px;
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
   display: none;
   z-index: 10;
 }
@@ -215,7 +214,7 @@ body {
 
 /* Lista de Funcionalidades */
 .features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; flex-grow: 1; }
-.features li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #e4e4e7; }
+.features li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: #ffffff; }
 .features i { color: var(--theme-color); font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
 
 /* Rodapé do Card (Preços e Botões) */
@@ -227,9 +226,9 @@ body {
   width: 100%; padding: 14px 18px;
   border-radius: var(--radius-sm);
   font-weight: 700; font-size: 1rem;
-  background: var(--theme-color);
-  border: 1px solid var(--theme-color);
-  box-shadow: 0 8px 20px -6px var(--theme-color);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border: 1px solid var(--gold-light);
+  box-shadow: 0 8px 22px -6px rgba(var(--gold-rgb), 0.6);
   transition: var(--ease);
   position: relative;
 }
@@ -241,7 +240,7 @@ body {
 .btn:hover, .btn:focus-visible {
   transform: translateY(-2px);
   filter: brightness(1.1);
-  box-shadow: 0 12px 28px -6px var(--theme-color);
+  box-shadow: 0 12px 30px -6px rgba(var(--gold-rgb), 0.8);
 }
 
 /* Preço Secundário (Mensalidade/Consultoria) */
@@ -286,13 +285,13 @@ body {
 
 .toast {
   position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
-  background: var(--bg-card); border: 1px solid var(--color-green); color: var(--text-main);
+  background: var(--bg-card); border: 1px solid var(--gold); color: var(--text-main);
   padding: 14px 24px; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: var(--ease); z-index: 50;
   display: flex; align-items: center; gap: 10px;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
-.toast i { color: var(--color-green); font-size: 1.2rem; }
+.toast i { color: var(--gold); font-size: 1.2rem; }
 
 /* ==========================================================
    7. ACESSIBILIDADE & UTILITÁRIOS
