@@ -119,7 +119,6 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 24px;
-  cursor: grab;
   transition: var(--ease);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   
@@ -135,18 +134,6 @@ body {
 
 /* Todos os destaques em dourado */
 
-/* Indicador de Arrastar (Drag Handle) */
-.drag-handle {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--border-color);
-  font-size: 1.5rem;
-  opacity: 0.5;
-  transition: var(--ease);
-}
-.card:hover .drag-handle { opacity: 1; color: var(--text-muted); }
 
 /* Linha superior colorida */
 .card::before {
@@ -166,26 +153,6 @@ body {
   box-shadow: var(--shadow-card), 0 0 30px rgba(0,0,0,0.1);
 }
 
-.card.dragging { opacity: 0.4; border: 2px dashed var(--theme-color); cursor: grabbing; transform: scale(0.98); }
-
-/* Selo Mais Popular */
-.badge-popular {
-  position: absolute;
-  top: -12px;
-  right: 24px;
-  background: var(--theme-color);
-  color: #000;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
-  display: none;
-  z-index: 10;
-}
-.card[data-popular] .badge-popular { display: block; }
 
 /* Conteúdo do Card */
 .card-head {
@@ -277,7 +244,7 @@ body {
 .card-foot i { color: var(--theme-color); font-size: 1.3rem; }
 
 /* ==========================================================
-   6. FOOTER SITE & TOAST
+   6. FOOTER SITE
    ========================================================== */
 .site-footer {
   text-align: center; margin-top: 64px; padding: 24px 0;
@@ -285,15 +252,6 @@ body {
 }
 .site-footer i { vertical-align: middle; margin-right: 6px; }
 
-.toast {
-  position: fixed; left: 50%; bottom: 30px; transform: translate(-50%, 20px);
-  background: var(--bg-card); border: 1px solid var(--gold); color: var(--text-main);
-  padding: 14px 24px; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: var(--ease); z-index: 50;
-  display: flex; align-items: center; gap: 10px;
-}
-.toast.show { opacity: 1; transform: translate(-50%, 0); }
-.toast i { color: var(--gold); font-size: 1.2rem; }
 
 /* ==========================================================
    7. ACESSIBILIDADE & UTILITÁRIOS
@@ -329,11 +287,10 @@ body {
   <main>
     <h1 class="sr-only">Serviços: logotipo, site e anúncios</h1>
     
-    <section class="grid" id="grid" aria-label="Lista de serviços — arraste os cards para reorganizar">
+    <section class="grid" id="grid" aria-label="Lista de serviços">
 
       <!-- CARD 1 · LOGOTIPO -->
-      <article class="card" data-theme="purple" data-id="1" draggable="true" tabindex="0" aria-labelledby="t1">
-        <i class="ph-bold ph-dots-six drag-handle"></i>
+      <article class="card" data-theme="purple" data-id="1" aria-labelledby="t1">
         
         <div class="card-head">
           <span class="num">#01</span>
@@ -356,7 +313,7 @@ body {
         </ul>
         
         <div class="card-actions">
-          <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Abrir página do serviço">
+          <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn" target="_blank" rel="noopener" data-tip="Abrir página do serviço">
             <span class="label">Criar Logotipo</span>
             <span class="value">R$ 800 <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -368,9 +325,7 @@ body {
       </article>
 
       <!-- CARD 2 · SITE + MENSALIDADE -->
-      <article class="card" data-theme="orange" data-id="2" data-popular draggable="true" tabindex="0" aria-labelledby="t2">
-        <span class="badge-popular">Mais Popular</span>
-        <i class="ph-bold ph-dots-six drag-handle"></i>
+      <article class="card" data-theme="orange" data-id="2" aria-labelledby="t2">
 
         <div class="card-head">
           <span class="num">#02</span>
@@ -397,7 +352,7 @@ body {
             <span class="label">Suporte + Domínio + Hospedagem</span>
             <span class="value">R$ 90/mês</span>
           </div>
-          <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Ver os pacotes de criação de site">
+          <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn" target="_blank" rel="noopener" data-tip="Ver os pacotes de criação de site">
             <span class="label">Implementação</span>
             <span class="value">Ver Pacotes <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -409,8 +364,7 @@ body {
       </article>
 
       <!-- CARD 3 · ANÚNCIOS -->
-      <article class="card" data-theme="green" data-id="3" draggable="true" tabindex="0" aria-labelledby="t3">
-        <i class="ph-bold ph-dots-six drag-handle"></i>
+      <article class="card" data-theme="green" data-id="3" aria-labelledby="t3">
 
         <div class="card-head">
           <span class="num">#03</span>
@@ -437,7 +391,7 @@ body {
             <span class="label">Precisa de ajuda?</span>
             <span class="value"><a href="https://assessoria.wacomercial.com.br/p/consultoria-assessoria-para-empresas.html" target="_blank" rel="noopener">Consultoria</a></span>
           </div>
-          <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn" target="_blank" rel="noopener" draggable="false" data-tip="Abrir detalhes da implementação de 90 dias">
+          <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn" target="_blank" rel="noopener" data-tip="Abrir detalhes da implementação de 90 dias">
             <span class="label">Implementação 90D</span>
             <span class="value">Ver Detalhes <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -452,76 +406,10 @@ body {
   </main>
 
   <footer class="site-footer">
-    <i class="ph-bold ph-arrows-out-line-horizontal"></i> Arraste os cards para reorganizar a ordem de preferência. <br><br>
     © 2026 Soluções para Crescer
   </footer>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite">
-  <i class="ph-fill ph-check-circle"></i> <span id="toast-msg">Ordem salva</span>
-</div>
 
-<script>
-  const grid = document.getElementById('grid');
-  const toast = document.getElementById('toast');
-  const toastMsg = document.getElementById('toast-msg');
-  const STORE = 'spc-order';
-  let dragged = null, toastTimer;
-
-  const cards = () => [...grid.querySelectorAll('.card')];
-
-  function say(msg) {
-    toastMsg.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer); 
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  function applyOrder(ids) {
-    ids.forEach(id => { 
-      const el = grid.querySelector(`[data-id="${id}"]`); 
-      if (el) grid.appendChild(el); 
-    });
-  }
-
-  function save() {
-    try { localStorage.setItem(STORE, JSON.stringify(cards().map(c => c.dataset.id))); } catch (e) {}
-  }
-
-  // Restaura a ordem salva
-  try { 
-    const saved = JSON.parse(localStorage.getItem(STORE)); 
-    if (saved) applyOrder(saved); 
-  } catch (e) {}
-
-  // Lógica Drag and Drop
-  grid.addEventListener('dragstart', e => {
-    dragged = e.target.closest('.card'); 
-    if (!dragged) return;
-    dragged.classList.add('dragging'); 
-    e.dataTransfer.effectAllowed = 'move';
-  });
-
-  grid.addEventListener('dragover', e => {
-    e.preventDefault();
-    const over = e.target.closest('.card');
-    if (!dragged || !over || over === dragged) return;
-    
-    const r = over.getBoundingClientRect();
-    // Decide se insere antes ou depois baseado na posição do mouse
-    const after = (e.clientX - r.left) > r.width / 2 && window.innerWidth >= 768 || 
-                  (e.clientY - r.top) > r.height / 2 && window.innerWidth < 768;
-                  
-    grid.insertBefore(dragged, after ? over.nextSibling : over);
-  });
-
-  grid.addEventListener('dragend', () => {
-    if (!dragged) return;
-    dragged.classList.remove('dragging'); 
-    dragged = null; 
-    save(); 
-    say('Nova ordem salva!');
-  });
-</script>
 </body>
 </html>
