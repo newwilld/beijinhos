@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soluções para Crescer — Logotipo, Site e Anúncios</title>
 <meta name="theme-color" content="#000000">
+<meta property="og:title" content="Soluções para Crescer — Logotipo, Site e Anúncios">
+<meta property="og:description" content="Sua marca, seu site e suas vendas em um só lugar.">
+<meta property="og:type" content="website">
 <script>document.documentElement.classList.add('js')</script>
 <meta name="description" content="Criação de logotipo, sites e anúncios para empresas que querem crescer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -246,9 +249,49 @@ body {
 
 
 /* Reveal com GSAP: itens começam ocultos e aparecem um a um no scroll */
-.js :is(.logo, .header-subtitle, .card-head, .card-title, .card-desc, .card-img, .features li, .card-actions > *, .card-foot):not(.in) {
+.js :is(.logo, .hero-title, .header-subtitle, .hero-cta, .trust li, .final-cta h2, .final-cta p, .card-head, .card-title, .card-desc, .card-img, .features li, .card-actions > *, .card-foot):not(.in) {
   opacity: 0; transition: none !important;
 }
+
+/* ==========================================================
+   CONVERSÃO: hero, CTAs, prova de confiança, CTA final, WhatsApp
+   ========================================================== */
+[hidden] { display: none !important; }
+.gold { color: var(--gold); }
+html { scroll-padding-top: 16px; }
+.hero-title { font-size: clamp(1.7rem, 4.2vw, 2.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.5px; margin: 28px auto 0; max-width: 22ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+.btn-cta {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 16px 28px; border-radius: var(--radius-sm); font-weight: 800; font-size: 1rem;
+  transition: var(--ease); cursor: pointer;
+}
+.btn-cta > span, .btn-cta > i { position: relative; z-index: 1; }
+.btn-cta i { font-size: 1.2rem; }
+.btn-cta--solid { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: #000; box-shadow: 0 10px 28px -8px rgba(var(--gold-rgb), 0.7); }
+.btn-cta--solid:hover, .btn-cta--solid:focus-visible { transform: translateY(-3px); box-shadow: 0 14px 34px -8px rgba(var(--gold-rgb), 0.9); }
+.btn-cta--ghost { border: 1px solid var(--gold); color: var(--gold); }
+.btn-cta--ghost:hover, .btn-cta--ghost:focus-visible { background: rgba(var(--gold-rgb), 0.12); transform: translateY(-3px); }
+.trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 28px; font-size: 0.9rem; color: var(--text-muted); }
+.trust li { display: flex; align-items: center; gap: 8px; }
+.trust i { color: var(--gold); font-size: 1.25rem; }
+
+.final-cta {
+  margin-top: 64px; padding: 48px 24px; text-align: center; border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--gold-rgb), 0.35);
+  background: radial-gradient(circle at 50% 0%, rgba(var(--gold-rgb), 0.16), transparent 65%), var(--bg-card);
+}
+.final-cta h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; }
+.final-cta p { color: var(--text-muted); margin-top: 8px; }
+
+.wa-float {
+  position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 58px; height: 58px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.9rem;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: #000;
+  box-shadow: 0 10px 28px -4px rgba(var(--gold-rgb), 0.7); transition: var(--ease);
+}
+.wa-float:hover { transform: scale(1.08); }
+@media (max-width: 768px) { .btn-cta { width: 100%; } .hero-cta { flex-direction: column; } }
 
 /* ==========================================================
    6. FOOTER SITE
@@ -287,11 +330,21 @@ body {
       <i class="ph-fill ph-star" role="img" aria-label="Logo estrela"></i>
       <span>SOLUÇÕES <span class="accent">PARA CRESCER</span></span>
     </div>
+    <h2 class="hero-title">Sua marca, seu site e suas vendas <span class="gold">em um só lugar</span></h2>
     <p class="header-subtitle">Estruturamos sua marca, presença digital e vendas.</p>
+    <div class="hero-cta">
+      <a href="#servicos" class="btn-cta btn-cta--solid" data-cta="hero_escolher_servico"><span>Escolher meu serviço</span><i class="ph-bold ph-arrow-down" aria-hidden="true"></i></a>
+      <a class="btn-cta btn-cta--ghost js-wa" data-cta="hero_whatsapp" hidden><i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i><span>Falar no WhatsApp</span></a>
+    </div>
+    <ul class="trust">
+      <li><i class="ph-fill ph-shield-check" aria-hidden="true"></i> Design 100% exclusivo</li>
+      <li><i class="ph-fill ph-devices" aria-hidden="true"></i> Sites responsivos e modernos</li>
+      <li><i class="ph-fill ph-chart-line-up" aria-hidden="true"></i> Foco em resultados</li>
+    </ul>
   </header>
 
   <!-- ================= GRID ================= -->
-  <main>
+  <main id="servicos">
     <h1 class="sr-only">Serviços: logotipo, site e anúncios</h1>
     
     <section class="grid" id="grid" aria-label="Lista de serviços">
@@ -320,7 +373,7 @@ body {
         </ul>
         
         <div class="card-actions">
-          <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn" target="_blank" rel="noopener" data-tip="Abrir página do serviço">
+          <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn" data-cta="card_logotipo" target="_blank" rel="noopener" data-tip="Abrir página do serviço">
             <span class="label">Criar Logotipo</span>
             <span class="value">R$ 800 <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -359,7 +412,7 @@ body {
             <span class="label">Suporte + Domínio + Hospedagem</span>
             <span class="value">R$ 90/mês</span>
           </div>
-          <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn" target="_blank" rel="noopener" data-tip="Ver os pacotes de criação de site">
+          <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn" data-cta="card_site" target="_blank" rel="noopener" data-tip="Ver os pacotes de criação de site">
             <span class="label">Implementar Site</span>
             <span class="value">Ver Pacotes <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -396,9 +449,9 @@ body {
         <div class="card-actions">
           <div class="price-secondary">
             <span class="label">Precisa de ajuda?</span>
-            <span class="value"><a href="https://assessoria.wacomercial.com.br/p/consultoria-assessoria-para-empresas.html" target="_blank" rel="noopener">Consultoria</a></span>
+            <span class="value"><a data-cta="card_consultoria" href="https://assessoria.wacomercial.com.br/p/consultoria-assessoria-para-empresas.html" target="_blank" rel="noopener">Consultoria</a></span>
           </div>
-          <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn" target="_blank" rel="noopener" data-tip="Abrir detalhes da implementação de 90 dias">
+          <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn" data-cta="card_anuncios" target="_blank" rel="noopener" data-tip="Abrir detalhes da implementação de 90 dias">
             <span class="label">Implementar Anúncios 90D</span>
             <span class="value">Ver Detalhes <i class="ph-bold ph-arrow-up-right"></i></span>
           </a>
@@ -412,6 +465,16 @@ body {
     </section>
   </main>
 
+  <section class="final-cta" aria-labelledby="fc">
+    <h2 id="fc">Pronto para <span class="gold">crescer</span>?</h2>
+    <p>Escolha por onde começar e dê o próximo passo hoje.</p>
+    <div class="hero-cta">
+      <a href="https://assessoria.wacomercial.com.br/p/melhor-criacao-de-identidade.html" class="btn-cta btn-cta--solid" target="_blank" rel="noopener" data-cta="final_logotipo"><span>Quero meu logotipo</span><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+      <a href="https://assessoria.wacomercial.com.br/p/pacotes-criacao-site-profissional.html" class="btn-cta btn-cta--solid" target="_blank" rel="noopener" data-cta="final_site"><span>Quero meu site</span><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+      <a href="https://assessoria.wacomercial.com.br/p/assessoria-consultoria-para-empresas.html" class="btn-cta btn-cta--solid" target="_blank" rel="noopener" data-cta="final_anuncios"><span>Quero mais clientes</span><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+
   <footer class="site-footer">
     © 2026 Soluções para Crescer
   </footer>
@@ -423,7 +486,7 @@ body {
   /* Animação GSAP: ao rolar, cada item (título, texto, imagem, cada feature, botão...) aparece um de cada vez */
   (function () {
     const targets = [...document.querySelectorAll(
-      '.logo, .header-subtitle, .card-head, .card-title, .card-desc, .card-img, .features li, .card-actions > *, .card-foot'
+      '.logo, .hero-title, .header-subtitle, .hero-cta, .trust li, .final-cta h2, .final-cta p, .card-head, .card-title, .card-desc, .card-img, .features li, .card-actions > *, .card-foot'
     )];
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -460,7 +523,7 @@ body {
   /* Brilho GSAP: uma faixa de luz atravessa cada botão em loop, com intervalo entre as passadas */
   (function () {
     if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.querySelectorAll('.btn').forEach((btn, i) => {
+    document.querySelectorAll('.btn, .btn-cta--solid').forEach((btn, i) => {
       const wrap = document.createElement('span');
       wrap.className = 'btn-shine'; wrap.setAttribute('aria-hidden', 'true');
       const bar = document.createElement('span');
@@ -469,6 +532,27 @@ body {
       gsap.to(bar, { xPercent: 380, duration: 1.1, ease: 'power2.inOut', repeat: -1, repeatDelay: 2.4, delay: 1 + i * 0.7 });
     });
   })();
+</script>
+<a class="wa-float js-wa" data-cta="whatsapp_flutuante" aria-label="Falar no WhatsApp" hidden><i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i></a>
+
+<script>
+  /* ===== CONFIGURAÇÃO DE CONVERSÃO ===== */
+  const WHATSAPP_NUMBER = '';   // Ex.: '5579999999999' (DDI + DDD + número). Vazio = botões de WhatsApp ficam ocultos.
+  const WHATSAPP_MSG = 'Olá! Vim pelo site e quero saber mais sobre os serviços.';
+
+  if (WHATSAPP_NUMBER) {
+    document.querySelectorAll('.js-wa').forEach(a => {
+      a.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MSG);
+      a.target = '_blank'; a.rel = 'noopener'; a.hidden = false;
+    });
+  }
+
+  /* Rastreamento: cada clique em CTA vai para o dataLayer (Google Tag Manager / GA4) */
+  window.dataLayer = window.dataLayer || [];
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-cta]');
+    if (el) window.dataLayer.push({ event: 'cta_click', cta: el.dataset.cta });
+  });
 </script>
 </body>
 </html>
